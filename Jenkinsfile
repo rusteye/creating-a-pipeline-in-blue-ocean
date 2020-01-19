@@ -1,15 +1,15 @@
 pipeline {
   agent {
     docker {
-      image 'node:6-alpine'
-      args '-p 3000:3000'
+      args '-v /root/.m2:/root/.m2'
+      image 'maven:3-alpine'
     }
 
   }
   stages {
     stage('Build') {
       steps {
-        sh 'mvn -B -Dmaven.test.skip=true clean package'
+        sh 'mvn -B -DskipTests clean package'
       }
     }
 
